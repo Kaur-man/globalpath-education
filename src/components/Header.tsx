@@ -1,17 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import ConsultationModal from "./ConsultationModal";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
 <div id="sp-premium-header" className="sp-header-wrap">
   <div className="sp-topbar">
     <div className="sp-topbar-inner">
-      <a href="tel:08708715777" className="sp-top-item">Need Help? <strong>Talk To An Expert: 087087 15777</strong></a>
+      <a href="tel:7404040813" className="sp-top-item">Need Help? <strong>Talk To An Expert: 7404040813 / 8708715777</strong></a>
       <div className="sp-top-item"><span className="sp-dot"></span> Monday – Saturday <strong>09:00 AM – 06:00 PM</strong></div>
       <a href="#contact" className="sp-top-item">Get In Touch <strong>With Us</strong> <span className="sp-arrow">↗</span></a>
     </div>
@@ -27,51 +33,47 @@ export default function Header() {
             alt="Global Expert Immigration"
             className="ge-brand-logo-img"
           />
-          <div className="ge-brand-text">
-            <span className="ge-brand-title">Global <span>Expert</span></span>
-            <span className="ge-brand-subtitle">Immigration</span>
-          </div>
         </div>
       </a>
 
       <nav className="sp-nav" aria-label="Main navigation">
-        <a className="sp-nav-link active" href="https://solutionpointedu.com/">Home</a>
+        <a className="sp-nav-link active" href="/">Home</a>
 
         <div className="sp-nav-group">
           <button className="sp-nav-link sp-drop-btn" type="button">Who We Are <i></i></button>
           <div className="sp-dropdown">
-            <a href="https://solutionpointedu.com/about-us/"><span>01</span> About Us</a>
-            <a href="https://solutionpointedu.com/mission-vision/"><span>02</span> Mission & Vision</a>
-            <a href="https://solutionpointedu.com/accreditation/"><span>03</span> Accreditation</a>
+            <a href="#about"><span>01</span> About Us</a>
+            <a href="#about"><span>02</span> Mission & Vision</a>
+            <a href="#accreditation"><span>03</span> Accreditation</a>
           </div>
         </div>
 
         <div className="sp-nav-group">
           <button className="sp-nav-link sp-drop-btn" type="button">Our Services <i></i></button>
           <div className="sp-dropdown">
-            <a href="https://solutionpointedu.com/visa-counselling/"><span>01</span> Visa Counselling</a>
-            <a href="https://solutionpointedu.com/offer-aceptance/"><span>02</span> Offer Acceptance</a>
-            <a href="https://solutionpointedu.com/free-counselling/"><span>03</span> Free Counselling</a>
-            <a href="https://solutionpointedu.com/application-submission/"><span>04</span> Application Submission</a>
-            <a href="https://solutionpointedu.com/course-selection/"><span>05</span> Course Selection</a>
+            <a href="#services"><span>01</span> Visa Counselling</a>
+            <a href="#services"><span>02</span> Offer Acceptance</a>
+            <a href="#services"><span>03</span> Free Counselling</a>
+            <a href="#services"><span>04</span> Application Submission</a>
+            <a href="#services"><span>05</span> Course Selection</a>
           </div>
         </div>
 
         <div className="sp-nav-group">
           <button className="sp-nav-link sp-drop-btn" type="button">Study Abroad <i></i></button>
           <div className="sp-dropdown sp-country-menu">
-            <a href="https://solutionpointedu.com/study-in-canada/"><span>CA</span> Study in Canada</a>
-            <a href="https://solutionpointedu.com/study-in-australia/"><span>AU</span> Study in Australia</a>
-            <a href="https://solutionpointedu.com/study-in-usa/"><span>US</span> Study in USA</a>
-            <a href="https://solutionpointedu.com/study-in-uk/"><span>UK</span> Study in UK</a>
-            <a href="https://solutionpointedu.com/study-in-malta/"><span>MT</span> Study in Malta</a>
-            <a href="https://solutionpointedu.com/study-in-europe/"><span>EU</span> Study in Europe</a>
+            <a href="#destinations"><span>CA</span> Study in Canada</a>
+            <a href="#destinations"><span>AU</span> Study in Australia</a>
+            <a href="#destinations"><span>US</span> Study in USA</a>
+            <a href="#destinations"><span>UK</span> Study in UK</a>
+            <a href="#destinations"><span>MT</span> Study in Malta</a>
+            <a href="#destinations"><span>EU</span> Study in Europe</a>
           </div>
         </div>
 
-        <a className="sp-nav-link" href="https://solutionpointedu.com/success-stories/">Success Stories</a>
-        <a className="sp-nav-link" href="https://solutionpointedu.com/blog/">Blog</a>
-        <a className="sp-nav-link" href="https://solutionpointedu.com/contact-us/">Contact Us</a>
+        <a className="sp-nav-link" href="#sp-success-stories">Success Stories</a>
+        <a className="sp-nav-link" href="#why">Why Choose Us</a>
+        <a className="sp-nav-link" href="#contact">Contact Us</a>
       </nav>
 
       <button

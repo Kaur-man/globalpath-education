@@ -316,25 +316,23 @@ export default function AdminDashboardPage() {
             marginBottom: "25px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <div
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            <img
+              src="/logo.png"
+              alt="Global Expert Immigration"
               style={{
-                width: "40px",
-                height: "40px",
+                width: "44px",
+                height: "44px",
+                objectFit: "contain",
                 borderRadius: "10px",
-                background: "linear-gradient(135deg, #0284c7, #dc2626)",
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: 800,
-                fontSize: "18px",
+                background: "#ffffff",
+                padding: "2px",
+                boxShadow: "0 2px 10px rgba(10, 25, 47, 0.15)",
+                border: "1px solid rgba(15, 43, 92, 0.15)",
               }}
-            >
-              GE
-            </div>
+            />
             <div>
-              <h2 style={{ fontSize: "18px", fontWeight: 800, margin: 0, color: "#101a2a" }}>
+              <h2 style={{ fontSize: "18px", fontWeight: 800, margin: 0, color: "#0a192f" }}>
                 Admin Portal
               </h2>
               <small style={{ color: "#687386" }}>Global Expert Immigration Content Manager</small>
@@ -348,8 +346,9 @@ export default function AdminDashboardPage() {
               style={{
                 fontSize: "13px",
                 fontWeight: 600,
-                color: "#475569",
-                background: "#f1f5f9",
+                color: "#0a192f",
+                background: "#f0f7ff",
+                border: "1px solid rgba(29, 78, 216, 0.15)",
                 padding: "8px 14px",
                 borderRadius: "8px",
               }}
@@ -403,9 +402,9 @@ export default function AdminDashboardPage() {
               fontSize: "14px",
               cursor: "pointer",
               border: "none",
-              background: activeTab === "services" ? "#0284c7" : "#ffffff",
+              background: activeTab === "services" ? "linear-gradient(135deg, #0a192f, #1d4ed8)" : "#ffffff",
               color: activeTab === "services" ? "#ffffff" : "#475569",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+              boxShadow: activeTab === "services" ? "0 4px 15px rgba(10, 25, 47, 0.25)" : "0 2px 8px rgba(0,0,0,0.04)",
             }}
           >
             Services ({services.length})
@@ -419,9 +418,9 @@ export default function AdminDashboardPage() {
               fontSize: "14px",
               cursor: "pointer",
               border: "none",
-              background: activeTab === "destinations" ? "#0284c7" : "#ffffff",
+              background: activeTab === "destinations" ? "linear-gradient(135deg, #0a192f, #1d4ed8)" : "#ffffff",
               color: activeTab === "destinations" ? "#ffffff" : "#475569",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+              boxShadow: activeTab === "destinations" ? "0 4px 15px rgba(10, 25, 47, 0.25)" : "0 2px 8px rgba(0,0,0,0.04)",
             }}
           >
             Study Destinations ({destinations.length})
@@ -435,9 +434,9 @@ export default function AdminDashboardPage() {
               fontSize: "14px",
               cursor: "pointer",
               border: "none",
-              background: activeTab === "stories" ? "#0284c7" : "#ffffff",
+              background: activeTab === "stories" ? "linear-gradient(135deg, #0a192f, #1d4ed8)" : "#ffffff",
               color: activeTab === "stories" ? "#ffffff" : "#475569",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+              boxShadow: activeTab === "stories" ? "0 4px 15px rgba(10, 25, 47, 0.25)" : "0 2px 8px rgba(0,0,0,0.04)",
             }}
           >
             Success Stories ({stories.length})
@@ -618,13 +617,14 @@ export default function AdminDashboardPage() {
                     style={{
                       flex: 1,
                       padding: "11px",
-                      background: "#0284c7",
+                      background: "linear-gradient(135deg, #0a192f, #1d4ed8)",
                       color: "#fff",
                       border: "none",
                       borderRadius: "8px",
                       fontWeight: 700,
                       fontSize: "13px",
                       cursor: "pointer",
+                      boxShadow: "0 4px 15px rgba(10, 25, 47, 0.2)",
                     }}
                   >
                     {editingServiceId ? "Update Service" : "Create Service"}
@@ -825,13 +825,14 @@ export default function AdminDashboardPage() {
                     style={{
                       flex: 1,
                       padding: "11px",
-                      background: "#0284c7",
+                      background: "linear-gradient(135deg, #0a192f, #1d4ed8)",
                       color: "#fff",
                       border: "none",
                       borderRadius: "8px",
                       fontWeight: 700,
                       fontSize: "13px",
                       cursor: "pointer",
+                      boxShadow: "0 4px 15px rgba(10, 25, 47, 0.2)",
                     }}
                   >
                     {editingDestId ? "Update Destination" : "Create Destination"}
@@ -919,7 +920,7 @@ export default function AdminDashboardPage() {
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <div>
                           <b style={{ fontSize: "14px", color: "#1e293b", display: "block" }}>{st.title}</b>
-                          <small style={{ color: "#0284c7", fontWeight: 700 }}>{st.category}</small>
+                          <small style={{ color: "#1d4ed8", fontWeight: 700 }}>{st.category}</small>
                         </div>
                         <span
                           style={{
@@ -1110,13 +1111,14 @@ export default function AdminDashboardPage() {
                     style={{
                       flex: 1,
                       padding: "11px",
-                      background: "#0284c7",
+                      background: "linear-gradient(135deg, #0a192f, #1d4ed8)",
                       color: "#fff",
                       border: "none",
                       borderRadius: "8px",
                       fontWeight: 700,
                       fontSize: "13px",
                       cursor: "pointer",
+                      boxShadow: "0 4px 15px rgba(10, 25, 47, 0.2)",
                     }}
                   >
                     {editingStoryId ? "Update Story" : "Add to Success Stories"}

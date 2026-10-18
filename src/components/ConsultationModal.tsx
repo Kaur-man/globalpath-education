@@ -132,7 +132,7 @@ export default function ConsultationModal({
               style={{
                 marginTop: "20px",
                 padding: "10px 24px",
-                background: "#0284c7",
+                background: "linear-gradient(135deg, #0a192f, #1d4ed8)",
                 color: "#fff",
                 border: "none",
                 borderRadius: "8px",
@@ -151,7 +151,7 @@ export default function ConsultationModal({
                 style={{
                   fontSize: "11px",
                   fontWeight: 800,
-                  color: "#0284c7",
+                  color: "#1d4ed8",
                   letterSpacing: "1.5px",
                   textTransform: "uppercase",
                   marginBottom: "4px",
@@ -159,7 +159,7 @@ export default function ConsultationModal({
               >
                 Free Consultation
               </div>
-              <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#101722", margin: 0 }}>
+              <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0a192f", margin: 0 }}>
                 Book Your Profile Evaluation
               </h3>
             </div>
@@ -204,7 +204,7 @@ export default function ConsultationModal({
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="e.g. 087087 15777"
+                  placeholder="Enter your phone number"
                   style={{ width: "100%", padding: "10px 12px", borderRadius: "8px", border: "1px solid #cbd5e1", fontSize: "13px" }}
                 />
               </div>
@@ -246,13 +246,14 @@ export default function ConsultationModal({
                 style={{
                   width: "100%",
                   padding: "12px",
-                  background: loading ? "#9ca3af" : "#0284c7",
+                  background: loading ? "#9ca3af" : "linear-gradient(135deg, #0a192f 0%, #1d4ed8 100%)",
                   color: "#fff",
                   border: "none",
                   borderRadius: "8px",
                   fontWeight: 700,
                   fontSize: "14px",
                   cursor: loading ? "not-allowed" : "pointer",
+                  boxShadow: "0 4px 15px rgba(10, 25, 47, 0.25)",
                 }}
               >
                 {loading ? "Submitting..." : "Submit Consultation Request →"}

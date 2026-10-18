@@ -1,10 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import ConsultationModal from "./ConsultationModal";
 
 export default function Footer() {
   const [showModal, setShowModal] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
 <footer id="sp-footer">
@@ -21,24 +27,20 @@ export default function Footer() {
             alt="Global Expert Immigration"
             className="ge-brand-logo-img-footer"
           />
-          <div className="ge-brand-text">
-            <span className="ge-brand-title">Global <span>Expert</span></span>
-            <span className="ge-brand-subtitle">Immigration Consultants</span>
-          </div>
         </a>
 
-        <div className="sp-contact" style={{ marginTop: "24px" }}>
-          <a href="tel:08708715777">
+        <div className="sp-footer-contact">
+          <a href="tel:7404040813">
             <span className="sp-icon">☎</span>
-            <span>087087 15777</span>
+            <span>7404040813 / 8708715777</span>
           </a>
-          <a href="mailto:info@globalexpertimmigration.com">
+          <a href="mailto:globalexpertvisa@gmail.com">
             <span className="sp-icon">✉</span>
-            <span>info@globalexpertimmigration.com</span>
+            <span>globalexpertvisa@gmail.com</span>
           </a>
           <a href="#contact">
             <span className="sp-icon">✦</span>
-            <span>2nd floor, Sco-04, Railway Rd, Ibrahim Mandi, Karnal, Haryana 132001</span>
+            <span>SCO-04, Railway Rd, Karnal</span>
           </a>
         </div>
       </div>
@@ -46,24 +48,24 @@ export default function Footer() {
       <div className="sp-col">
         <h3>Quick Links</h3>
         <div className="sp-links">
-          <a href="https://solutionpointedu.com/free-counselling/">Free Counselling</a>
-          <a href="https://solutionpointedu.com/visa-counselling/">Visa Counselling</a>
-          <a href="https://solutionpointedu.com/course-selection/">Course Selection</a>
-          <a href="https://solutionpointedu.com/application-submission/">Application Support</a>
-          <a href="https://solutionpointedu.com/offer-aceptance/">Offer Acceptance</a>
-          <a href="https://solutionpointedu.com/contact-us/">Enquiry / Registration</a>
+          <a href="#services">Free Counselling</a>
+          <a href="#services">Visa Counselling</a>
+          <a href="#services">Course Selection</a>
+          <a href="#services">Application Support</a>
+          <a href="#services">Offer Acceptance</a>
+          <a href="#contact">Enquiry / Registration</a>
         </div>
       </div>
 
       <div className="sp-col">
         <h3>Study Abroad</h3>
         <div className="sp-links">
-          <a href="https://solutionpointedu.com/study-in-canada/">Study in Canada</a>
-          <a href="https://solutionpointedu.com/study-in-australia/">Study in Australia</a>
-          <a href="https://solutionpointedu.com/study-in-usa/">Study in USA</a>
-          <a href="https://solutionpointedu.com/study-in-uk/">Study in UK</a>
-          <a href="https://solutionpointedu.com/study-in-malta/">Study in Malta</a>
-          <a href="https://solutionpointedu.com/study-in-europe/">Study in Europe</a>
+          <a href="#destinations">Study in Canada</a>
+          <a href="#destinations">Study in Australia</a>
+          <a href="#destinations">Study in USA</a>
+          <a href="#destinations">Study in UK</a>
+          <a href="#destinations">Study in Malta</a>
+          <a href="#destinations">Study in Europe</a>
         </div>
       </div>
 
@@ -106,7 +108,7 @@ export default function Footer() {
   <div className="sp-bottom">
     <div className="sp-bottom-inner">
       <div className="sp-copy">
-        © 2026 <strong>Global Expert Immigration Consultants.</strong> All Rights Reserved.
+        © 2025 <strong>Global Expert Immigration Consultants.</strong> All Rights Reserved.
       </div>
 
       <div className="sp-social">

@@ -17,13 +17,46 @@ export default function HomePage({
 }: HomePageProps) {
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
-    const revealEls = document.querySelectorAll(
-      ".sp-section > .sp-wrap > .sp-center, .sp-about-visual, .sp-about-text, .sp-hero-visual, .sp-dest-card, .sp-obj-card, .sp-service-card, .sp-why-card, .sp-stat, .sp-accred-card, .sp-reveal"
-    );
+    const revealSelector =
+      ".sp-section > .sp-wrap > .sp-center, .sp-about-visual, .sp-about-text, .sp-hero-visual, .sp-dest-card, .sp-objective-card, .sp-service, .sp-why-item, .sp-about-point, .sp-stat, .sp-accred-card, .sp-success-card, .sp-reveal, .sp-reveal-left, .sp-reveal-right, .sp-card-motion";
 
-    revealEls.forEach((el) => {
-      el.classList.add("sp-visible", "sp-revealed");
-    });
+    const elements = document.querySelectorAll(revealSelector);
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("sp-visible", "sp-revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -40px 0px",
+        }
+      );
+
+      elements.forEach((el) => {
+        // If element is already in viewport on initial page load, trigger immediately
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          setTimeout(() => {
+            el.classList.add("sp-visible", "sp-revealed");
+          }, 80);
+        } else {
+          observer.observe(el);
+        }
+      });
+
+      // Clean up on unmount
+      return () => {
+        observer.disconnect();
+      };
+    } else {
+      elements.forEach((el) => el.classList.add("sp-visible", "sp-revealed"));
+    }
 
     // Gallery carousel arrow buttons
     const track = document.getElementById("sp-gallery-track");
@@ -89,7 +122,7 @@ export default function HomePage({
           </div>
 
           <div className="sp-trust-row">
-            <div className="sp-trust"><b>2008</b><small>Established</small></div>
+            <div className="sp-trust"><b>2025</b><small>Established</small></div>
             <div className="sp-trust"><b>4.9★</b><small>Google Rating</small></div>
             <div className="sp-trust"><b>227+</b><small>Reviews</small></div>
           </div>
@@ -105,7 +138,7 @@ export default function HomePage({
               <span>Professional education & immigration guidance</span>
             </div>
           </div>
-          <div className="sp-hero-stamp"><b>SP</b><span>Since 2008</span></div>
+          <div className="sp-hero-stamp"><b>SP</b><span>Since 2025</span></div>
         </div>
 
       </div>
@@ -113,12 +146,12 @@ export default function HomePage({
   </section>
 
   {/*  ================= ABOUT =================  */}
-  <section className="sp-about sp-section">
+  <section className="sp-about sp-section" id="about">
     <div className="sp-wrap">
       <div className="sp-about-grid">
 
         <div className="sp-about-visual">
-          <div className="sp-about-year"><b>2008</b><span>Since</span></div>
+          <div className="sp-about-year"><b>2025</b><span>Since</span></div>
           <div className="sp-about-main">
             <img decoding="async" src="https://globalexpertimmigration.com/wp-content/uploads/2026/09/WhatsApp-Image-2026-09-09-at-11.45.44-AM-4.jpeg" alt="Global Expert Immigration team" />
           </div>
@@ -301,9 +334,9 @@ export default function HomePage({
         </div>
 
         <div className="sp-proof-grid">
-          <div className="sp-proof"><b>4.9★</b><span>Google Rating</span></div>
+          <div className="sp-proof"><b>5.0★</b><span>Google Rating</span></div>
           <div className="sp-proof"><b>227+</b><span>Google Reviews</span></div>
-          <div className="sp-proof"><b>2008</b><span>Established</span></div>
+          <div className="sp-proof"><b>2025</b><span>Established</span></div>
           <div className="sp-proof"><b>6+</b><span>Study Destinations</span></div>
         </div>
       </div>
@@ -316,7 +349,7 @@ export default function HomePage({
   </section>
 
   {/*  ================= WHY CHOOSE =================  */}
-  <section className="sp-why sp-section">
+  <section className="sp-why sp-section" id="why">
     <div className="sp-wrap">
       <div className="sp-center">
         <div className="sp-eyebrow">Why Global Expert Immigration</div>
@@ -350,8 +383,8 @@ export default function HomePage({
   <section className="sp-stats sp-section">
     <div className="sp-wrap">
       <div className="sp-stats-grid">
-        <div className="sp-stat"><b>2008</b><span>Established</span></div>
-        <div className="sp-stat"><b>4.9★</b><span>Google Rating</span></div>
+        <div className="sp-stat"><b>2025</b><span>Established</span></div>
+        <div className="sp-stat"><b>5.0★</b><span>Google Rating</span></div>
         <div className="sp-stat"><b>227+</b><span>Google Reviews</span></div>
         <div className="sp-stat"><b>6+</b><span>Study Destinations</span></div>
       </div>
@@ -359,7 +392,7 @@ export default function HomePage({
   </section>
 
   {/*  ================= ACCREDITATION =================  */}
-  <section className="sp-accred sp-section">
+  {/* <section className="sp-accred sp-section" id="accreditation">
     <div className="sp-wrap">
       <div className="sp-center">
         <div className="sp-eyebrow">Trust & Recognition</div>
@@ -376,10 +409,10 @@ export default function HomePage({
         </div>
       </div>
     </div>
-  </section>
+  </section> */}
 
   {/*  ================= CONTACT CTA =================  */}
-  <section className="sp-contact sp-section">
+  <section className="sp-contact-cta sp-section" id="contact">
     <div className="sp-wrap">
       <div className="sp-contact-grid">
         <div>
@@ -398,14 +431,14 @@ export default function HomePage({
             >
               Book A Consultation →
             </button>
-            <a className="sp-btn-light" href="tel:08708715777">Call 087087 15777</a>
+            <a className="sp-btn-light" href="tel:7404040813">Call 7404040813</a>
           </div>
         </div>
 
         <div className="sp-contact-card">
           <div className="sp-contact-row"><small>Visit Us</small><b>2nd floor, Sco-04, Railway Rd, Ibrahim Mandi, Karnal, Haryana 132001</b></div>
-          <div className="sp-contact-row"><small>Call Us</small><b>087087 15777</b></div>
-          <div className="sp-contact-row"><small>Email</small><b>info@globalexpertimmigration.com</b></div>
+          <div className="sp-contact-row"><small>Call Us</small><b><a href="tel:7404040813">7404040813</a> / <a href="tel:8708715777">8708715777</a></b></div>
+          <div className="sp-contact-row"><small>Email</small><b><a href="mailto:globalexpertvisa@gmail.com">globalexpertvisa@gmail.com</a></b></div>
           <div className="sp-contact-row"><small>Online</small><b>globalexpertimmigration.com</b></div>
         </div>
       </div>

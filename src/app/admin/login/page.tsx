@@ -58,28 +58,27 @@ export default function AdminLoginPage() {
           background: "#ffffff",
           borderRadius: "18px",
           padding: "36px",
-          boxShadow: "0 10px 35px rgba(16, 23, 34, 0.08)",
-          border: "1px solid #efd9db",
+          boxShadow: "0 10px 35px rgba(10, 25, 47, 0.08)",
+          border: "1px solid rgba(15, 43, 92, 0.14)",
         }}
       >
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <div
+          <img
+            src="/logo.png"
+            alt="Global Expert Immigration"
             style={{
-              width: "48px",
-              height: "48px",
+              width: "56px",
+              height: "56px",
+              objectFit: "contain",
               borderRadius: "12px",
-              background: "linear-gradient(135deg, #0284c7, #dc2626)",
-              color: "#fff",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: 800,
-              fontSize: "20px",
+              background: "#ffffff",
+              padding: "4px",
+              boxShadow: "0 4px 16px rgba(10, 25, 47, 0.12)",
+              border: "1px solid rgba(15, 43, 92, 0.15)",
+              display: "inline-block",
               marginBottom: "12px",
             }}
-          >
-            GE
-          </div>
+          />
           <h1
             style={{
               fontSize: "22px",
@@ -179,7 +178,7 @@ export default function AdminLoginPage() {
             style={{
               width: "100%",
               padding: "13px",
-              background: loading ? "#9ca3af" : "#0284c7",
+              background: loading ? "#9ca3af" : "linear-gradient(135deg, #0a192f 0%, #1d4ed8 100%)",
               color: "#ffffff",
               border: "none",
               borderRadius: "10px",
@@ -187,6 +186,7 @@ export default function AdminLoginPage() {
               fontWeight: 700,
               cursor: loading ? "not-allowed" : "pointer",
               transition: "0.2s ease",
+              boxShadow: "0 4px 15px rgba(10, 25, 47, 0.25)",
             }}
           >
             {loading ? "Signing In..." : "Sign In to Dashboard →"}
