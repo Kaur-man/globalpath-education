@@ -17,9 +17,26 @@ export default function Header() {
 <div id="sp-premium-header" className="sp-header-wrap">
   <div className="sp-topbar">
     <div className="sp-topbar-inner">
-      <a href="tel:7404040813" className="sp-top-item">Need Help? <strong>Talk To An Expert: 7404040813 / 8708715777</strong></a>
-      <div className="sp-top-item"><span className="sp-dot"></span> Monday – Saturday <strong>09:00 AM – 06:00 PM</strong></div>
-      <a href="#contact" className="sp-top-item">Get In Touch <strong>With Us</strong> <span className="sp-arrow">↗</span></a>
+      <div className="sp-top-col sp-top-left">
+        <a href="tel:7404040813" className="sp-top-item">
+          <span className="sp-top-label">Need Help? </span>
+          <strong>Talk To An Expert: 7404040813 / 8708715777</strong>
+        </a>
+      </div>
+
+      <div className="sp-top-col sp-top-center">
+        <a href="mailto:globalexpertvisa@gmail.com" className="sp-top-email-item">
+          <span className="sp-top-email-title">globalexpertvisa@gmail.com</span>
+          <span className="sp-top-email-sub">With Us ↗</span>
+        </a>
+      </div>
+
+      <div className="sp-top-col sp-top-right">
+        <div className="sp-top-item">
+          <span className="sp-dot"></span>
+          <span>Monday – Saturday <strong>09:00 AM – 06:00 PM</strong></span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -33,6 +50,10 @@ export default function Header() {
             alt="Global Expert Immigration"
             className="ge-brand-logo-img"
           />
+          <div className="ge-brand-text-block">
+            <span className="ge-brand-company-title">GLOBAL EXPERT</span>
+            <span className="ge-brand-company-subtitle">IMMIGRATION</span>
+          </div>
         </div>
       </a>
 
@@ -51,11 +72,11 @@ export default function Header() {
         <div className="sp-nav-group">
           <button className="sp-nav-link sp-drop-btn" type="button">Our Services <i></i></button>
           <div className="sp-dropdown">
-            <a href="#services"><span>01</span> Visa Counselling</a>
-            <a href="#services"><span>02</span> Offer Acceptance</a>
-            <a href="#services"><span>03</span> Free Counselling</a>
-            <a href="#services"><span>04</span> Application Submission</a>
-            <a href="#services"><span>05</span> Course Selection</a>
+            <a href="#destinations"><span>01</span> Visa Counselling</a>
+            <a href="#destinations"><span>02</span> Offer Acceptance</a>
+            <a href="#destinations"><span>03</span> Free Counselling</a>
+            <a href="#destinations"><span>04</span> Application Submission</a>
+            <a href="#destinations"><span>05</span> Course Selection</a>
           </div>
         </div>
 
@@ -76,35 +97,26 @@ export default function Header() {
         <a className="sp-nav-link" href="#contact">Contact Us</a>
       </nav>
 
-      <button
-        className="sp-enquiry"
-        type="button"
-        onClick={() => setShowModal(true)}
-        style={{ cursor: "pointer", border: "none" }}
-      >
-        <span>Free Consultation</span><b>↗</b>
-      </button>
-
-      <button className="sp-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <button className="sp-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" onClick={() => setMobileOpen(!mobileOpen)}>
         <span></span><span></span><span></span>
       </button>
     </div>
 
-    <div className="sp-mobile-panel">
+    <div className={`sp-mobile-panel ${mobileOpen ? "open" : ""}`} style={{ display: mobileOpen ? "flex" : "none" }}>
       <a href="/">Home</a>
       <details>
         <summary>Who We Are</summary>
         <a href="#about">About Us</a>
         <a href="#about">Mission & Vision</a>
-        <a href="#about">Accreditation</a>
+        <a href="#accreditation">Accreditation</a>
       </details>
       <details>
         <summary>Our Services</summary>
-        <a href="#services">Visa Counselling</a>
-        <a href="#services">Offer Acceptance</a>
-        <a href="#services">Free Counselling</a>
-        <a href="#services">Application Submission</a>
-        <a href="#services">Course Selection</a>
+        <a href="#destinations">Visa Counselling</a>
+        <a href="#destinations">Offer Acceptance</a>
+        <a href="#destinations">Free Counselling</a>
+        <a href="#destinations">Application Submission</a>
+        <a href="#destinations">Course Selection</a>
       </details>
       <details>
         <summary>Study Abroad</summary>
@@ -115,16 +127,9 @@ export default function Header() {
         <a href="#destinations">Malta</a>
         <a href="#destinations">Europe</a>
       </details>
-      <a href="#success">Success Stories</a>
+      <a href="#sp-success-stories">Success Stories</a>
+      <a href="#why">Why Choose Us</a>
       <a href="#contact">Contact Us</a>
-      <button
-        className="sp-mobile-cta"
-        type="button"
-        onClick={() => setShowModal(true)}
-        style={{ width: "100%", cursor: "pointer", border: "none" }}
-      >
-        Get Free Consultation ↗
-      </button>
     </div>
   </header>
 

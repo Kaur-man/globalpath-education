@@ -94,14 +94,11 @@ export default function HomePage({
 {/*  ================= HERO =================  */}
   <section className="sp-hero sp-section">
     <div className="sp-wrap">
-      <div className="sp-hero-grid">
+      <div className="sp-hero-full">
 
-        <div>
-          <div className="sp-eyebrow">Global Expert Immigration Consultants</div>
-          <h1 className="sp-hero-title">
-            Your Journey.<br />
-            Your <em>Future.</em><br />
-            Our Guidance.
+        <div className="sp-hero-center-content">
+          <h1 className="sp-hero-title sp-hero-title-inline">
+            Your Journey. Your <em>Future.</em> Our Guidance.
           </h1>
           <p className="sp-hero-copy">
             Make your study abroad and visa journey simpler with experienced,
@@ -118,7 +115,7 @@ export default function HomePage({
             >
               Start Your Journey →
             </button>
-            <a className="sp-btn-light" href="#success">View Success Stories</a>
+            <a className="sp-btn-light" href="#sp-success-stories">View Success Stories</a>
           </div>
 
           <div className="sp-trust-row">
@@ -126,19 +123,6 @@ export default function HomePage({
             <div className="sp-trust"><b>4.9★</b><small>Google Rating</small></div>
             <div className="sp-trust"><b>227+</b><small>Reviews</small></div>
           </div>
-        </div>
-
-        <div className="sp-hero-visual">
-          <div className="sp-hero-card">
-            <div className="sp-hero-photo">
-              <img decoding="async" src="https://globalexpertimmigration.com/wp-content/uploads/2026/09/WhatsApp-Image-2026-09-09-at-11.45.44-AM-6.jpeg" alt="Global Expert Immigration Consultants" />
-            </div>
-            <div className="sp-hero-badge">
-              <b>Global Dreams</b>
-              <span>Professional education & immigration guidance</span>
-            </div>
-          </div>
-          <div className="sp-hero-stamp"><b>SP</b><span>Since 2025</span></div>
         </div>
 
       </div>
@@ -243,34 +227,6 @@ export default function HomePage({
     </div>
   </section>
 
-  {/*  ================= SERVICES =================  */}
-  <section className="sp-services sp-section" id="services">
-    <div className="sp-wrap">
-      <div className="sp-center">
-        <div className="sp-eyebrow">Our Services</div>
-        <h2 className="sp-heading">One journey. <span>Complete support.</span></h2>
-        <p className="sp-sub">A streamlined support system for students planning their international education journey.</p>
-      </div>
-
-      <div className="sp-service-grid">
-        {(initialServices.length > 0 ? initialServices : [
-          { id: 1, title: 'Visa Counselling', slug: 'visa-counselling', description: 'Understand your visa pathway and application requirements.' },
-          { id: 2, title: 'Offer Acceptance', slug: 'offer-acceptance', description: 'Move forward confidently after receiving your offer.' },
-          { id: 3, title: 'Free Counselling', slug: 'free-counselling', description: 'Start with a profile-focused discussion about your options.' },
-          { id: 4, title: 'Application Submission', slug: 'application-submission', description: 'Get organised support through the application stage.' },
-          { id: 5, title: 'Course Selection', slug: 'course-selection', description: 'Compare suitable courses and build a future-focused plan.' },
-        ]).map((item, idx) => (
-          <a key={item.id || idx} className="sp-service" href={`#services`}>
-            <div className="sp-service-icon">{String(idx + 1).padStart(2, '0')}</div>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <span className="sp-service-link">View Service →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
   {/*  ================= SUCCESS STORIES =================  */}
   <section className="sp-success sp-section" id="sp-success-stories">
     <div className="sp-wrap">
@@ -343,7 +299,7 @@ export default function HomePage({
 
       <div className="sp-actions sp-reveal" style={{ justifyContent: "center" }}>
         <a className="sp-btn" href="https://globalexpertimmigration.com/success-stories/">Explore Success Stories</a>
-        <a className="sp-btn-light" href="https://share.google/TtAeLDz1IEVvog7Mq">Read Google Reviews</a>
+        <a className="sp-btn-light" href="https://www.google.com/search?q=global+expert+immigration+karnal&oq=g&gs_lcrp=EgZjaHJvbWUqBggBEEUYOzIGCAAQRRg8MgYIARBFGDsyBggCEEUYOTIICAMQRRgnGDsyBggEEEUYPDIGCAUQRRg8MgYIBhBFGD0yBggHEEUYPNIBCDM0ODNqMGo0qAIAsAIB&sourceid=chrome&source=chrome.ob&ie=UTF-8">Read Google Reviews</a>
       </div>
     </div>
   </section>
