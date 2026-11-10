@@ -21,27 +21,28 @@ export default function Footer() {
   <div className="sp-footer-wrap">
     <div className="sp-footer-grid">
 
-      <div className="sp-brand">
-        <a className="ge-brand-card" href="/" aria-label="Global Expert Immigration">
-          <img
-            src="/logo.png"
-            alt="Global Expert Immigration"
-            className="ge-brand-logo-img-footer"
-          />
-        </a>
-
+      <div className="sp-col sp-contact-col">
+        <h3>Contact Us</h3>
         <div className="sp-footer-contact">
-          <a href="tel:7404040813">
+          <a href="tel:7404040813" className="sp-footer-contact-card">
             <span className="sp-icon">☎</span>
-            <span>7404040813 / 8708715777</span>
+            <div className="sp-contact-info">
+              <span className="sp-contact-title">7404040813 / 8708715777</span>
+            </div>
           </a>
-          <a href="mailto:globalexpertvisa@gmail.com">
+          <a href="mailto:globalexpertvisa@gmail.com" className="sp-footer-contact-card">
             <span className="sp-icon">✉</span>
-            <span>globalexpertvisa@gmail.com</span>
+            <div className="sp-contact-info">
+              <span className="sp-contact-title">globalexpertvisa@gmail.com</span>
+            </div>
           </a>
-          <a href="#contact">
+          <a href="#contact" className="sp-footer-contact-card sp-footer-address-card">
             <span className="sp-icon">✦</span>
-            <span>SCO-04, Railway Rd, Karnal</span>
+            <div className="sp-contact-info">
+              <span className="sp-contact-address">
+                <strong>Address:</strong> SCO-04, 2nd Floor Ibrahim Mandi, Near Railway Road, Karnal - 132001, Haryana
+              </span>
+            </div>
           </a>
         </div>
       </div>
@@ -70,7 +71,18 @@ export default function Footer() {
         </div>
       </div>
 
-      <div>
+      <div className="sp-col">
+        <h3>Explore</h3>
+        <div className="sp-links">
+          <a href="#about">About Global Expert Immigration</a>
+          <a href="#success">Success Stories</a>
+          <a href="/">Home</a>
+          <a href="#contact">Contact Us</a>
+          <a href="#accreditation">Accreditation</a>
+        </div>
+      </div>
+
+      <div className="sp-cta-col">
         <div className="sp-cta">
           <h3>Start Your Journey</h3>
           <p>Get personalised guidance for your study abroad and visa plans.</p>
@@ -82,24 +94,16 @@ export default function Footer() {
               padding: "14px",
               borderRadius: "30px",
               background: "#ffffff",
-              color: "#035388",
+              color: "#0a192f",
               fontWeight: 800,
               fontSize: "14px",
               border: "none",
               cursor: "pointer",
+              transition: "all 0.25s ease",
             }}
           >
             Get Free Consultation →
           </button>
-        </div>
-
-        <div className="sp-col" style={{ marginTop: "31px" }}>
-          <h3>Explore</h3>
-          <div className="sp-links">
-            <a href="#about">About Global Expert Immigration</a>
-            <a href="#success">Success Stories</a>
-            <a href="/">Home</a>
-          </div>
         </div>
       </div>
 

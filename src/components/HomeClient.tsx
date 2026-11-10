@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Service, Destination, SuccessStory } from "../lib/types";
 import ConsultationModal from "./ConsultationModal";
 
@@ -16,9 +16,67 @@ export default function HomePage({
   initialSuccessStories = [],
 }: HomePageProps) {
   const [showModal, setShowModal] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const heroImages = [
+    {
+      id: "img-1",
+      url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop",
+      alt: "International students studying together abroad",
+    },
+    {
+      id: "img-2",
+      url: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1600&auto=format&fit=crop",
+      alt: "Graduation and study abroad university milestone",
+    },
+    {
+      id: "img-3",
+      url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop",
+      alt: "Global education counselling session",
+    },
+  ];
+
+  // Auto-play timer for background image slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? heroImages.length - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  };
+
+  // Touch swipe support (mobile & tablet)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const distance = touchStartX.current - touchEndX.current;
+    if (distance > 50) {
+      handleNextSlide();
+    } else if (distance < -50) {
+      handlePrevSlide();
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
   useEffect(() => {
     const revealSelector =
-      ".sp-section > .sp-wrap > .sp-center, .sp-about-visual, .sp-about-text, .sp-hero-visual, .sp-dest-card, .sp-objective-card, .sp-service, .sp-why-item, .sp-about-point, .sp-stat, .sp-accred-card, .sp-success-card, .sp-reveal, .sp-reveal-left, .sp-reveal-right, .sp-card-motion";
+      ".sp-section > .sp-wrap > .sp-center, .sp-about-visual, .sp-about-text, .sp-dest-card, .sp-objective-card, .sp-why-item, .sp-about-point, .sp-stat, .sp-accred-card, .sp-success-card, .sp-reveal, .sp-reveal-left, .sp-reveal-right, .sp-card-motion";
 
     const elements = document.querySelectorAll(revealSelector);
 
@@ -28,29 +86,25 @@ export default function HomePage({
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add("sp-visible", "sp-revealed");
-              observer.unobserve(entry.target);
+            } else {
+              // When scrolling back up, re-trigger animation smoothly like ibcoverseas
+              const rect = entry.target.getBoundingClientRect();
+              if (rect.top > window.innerHeight || rect.bottom < 0) {
+                entry.target.classList.remove("sp-visible", "sp-revealed");
+              }
             }
           });
         },
         {
-          threshold: 0.12,
-          rootMargin: "0px 0px -40px 0px",
+          threshold: 0.1,
+          rootMargin: "0px 0px -30px 0px",
         }
       );
 
       elements.forEach((el) => {
-        // If element is already in viewport on initial page load, trigger immediately
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          setTimeout(() => {
-            el.classList.add("sp-visible", "sp-revealed");
-          }, 80);
-        } else {
-          observer.observe(el);
-        }
+        observer.observe(el);
       });
 
-      // Clean up on unmount
       return () => {
         observer.disconnect();
       };
@@ -91,41 +145,63 @@ export default function HomePage({
 
   return (
     <div id="sp-master-home">
-{/*  ================= HERO =================  */}
-  <section className="sp-hero sp-section">
-    <div className="sp-wrap">
-      <div className="sp-hero-full">
-
-        <div className="sp-hero-center-content">
-          <h1 className="sp-hero-title sp-hero-title-inline">
-            Your Journey. Your <em>Future.</em> Our Guidance.
-          </h1>
-          <p className="sp-hero-copy">
-            Make your study abroad and visa journey simpler with experienced,
-            personalised guidance from counselling and course selection to
-            applications and the next step towards your international future.
-          </p>
-
-          <div className="sp-actions">
-            <button
-              className="sp-btn"
-              type="button"
-              onClick={() => setShowModal(true)}
-              style={{ cursor: "pointer", border: "none" }}
-            >
-              Start Your Journey →
-            </button>
-            <a className="sp-btn-light" href="#sp-success-stories">View Success Stories</a>
-          </div>
-
-          <div className="sp-trust-row">
-            <div className="sp-trust"><b>2025</b><small>Established</small></div>
-            <div className="sp-trust"><b>4.9★</b><small>Google Rating</small></div>
-            <div className="sp-trust"><b>227+</b><small>Reviews</small></div>
-          </div>
+{/*  ================= HERO BANNER (IBC OVERSEAS STYLE) =================  */}
+  <section
+    className="sp-hero sp-hero-ibc-layout"
+    onTouchStart={handleTouchStart}
+    onTouchMove={handleTouchMove}
+    onTouchEnd={handleTouchEnd}
+  >
+    {/* Background Image Carousel Track */}
+    <div className="sp-hero-ibc-images">
+      {heroImages.map((img, idx) => (
+        <div
+          key={img.id}
+          className={`sp-hero-ibc-slide ${idx === currentSlide ? "active" : ""}`}
+        >
+          <img
+            src={img.url}
+            alt={img.alt}
+            className="sp-hero-ibc-img"
+          />
         </div>
+      ))}
+      <div className="sp-hero-ibc-scrim" />
+    </div>
 
+    {/* Content Container - Exactly aligned like IBC */}
+    <div className="sp-wrap sp-hero-ibc-wrap">
+      <div className="sp-hero-ibc-content">
+        <h1 className="sp-hero-ibc-title">
+          Your Gateway to<br />
+          <span>Global Education & Visas</span>
+        </h1>
+        <p className="sp-hero-ibc-subtitle">
+          Your Journey. Your Future. Our Expert Guidance.
+        </p>
+        <div className="sp-hero-ibc-actions">
+          <button
+            type="button"
+            className="sp-hero-ibc-btn"
+            onClick={() => setShowModal(true)}
+          >
+            Contact Us
+          </button>
+        </div>
       </div>
+    </div>
+
+    {/* Dot Indicators */}
+    <div className="sp-hero-ibc-dots">
+      {heroImages.map((_, dotIdx) => (
+        <button
+          key={dotIdx}
+          type="button"
+          className={`sp-hero-ibc-dot ${dotIdx === currentSlide ? "active" : ""}`}
+          onClick={() => setCurrentSlide(dotIdx)}
+          aria-label={`Slide ${dotIdx + 1}`}
+        />
+      ))}
     </div>
   </section>
 
@@ -315,21 +391,87 @@ export default function HomePage({
 
       <div className="sp-why-layout">
         <div className="sp-why-visual">
+          <div className="sp-why-ring-pulse"></div>
           <div className="sp-why-ring"></div>
-          <div className="sp-why-center"><b>SP</b><span>Education & Immigration Guidance</span></div>
-          <div className="sp-why-pill">Profile Focused</div>
-          <div className="sp-why-pill">Global Options</div>
-          <div className="sp-why-pill">Clear Process</div>
-          <div className="sp-why-pill">Personal Support</div>
+          <div className="sp-why-center">
+            <div className="sp-why-center-badge">GE</div>
+            <b>Global Expert</b>
+            <span>Immigration & Visa Guidance</span>
+            <small>Karnal, Haryana</small>
+          </div>
+          <div className="sp-why-pill sp-pill-1">
+            <span className="sp-pill-icon">🎯</span>
+            <div className="sp-pill-text">
+              <strong>Profile Focused</strong>
+              <small>1-on-1 Personalized Plan</small>
+            </div>
+          </div>
+          <div className="sp-why-pill sp-pill-2">
+            <span className="sp-pill-icon">🌍</span>
+            <div className="sp-pill-text">
+              <strong>Global Destinations</strong>
+              <small>Canada, UK, Aus, USA</small>
+            </div>
+          </div>
+          <div className="sp-why-pill sp-pill-3">
+            <span className="sp-pill-icon">⚡</span>
+            <div className="sp-pill-text">
+              <strong>Clear Process</strong>
+              <small>100% Transparent Filing</small>
+            </div>
+          </div>
+          <div className="sp-why-pill sp-pill-4">
+            <span className="sp-pill-icon">🤝</span>
+            <div className="sp-pill-text">
+              <strong>Personal Support</strong>
+              <small>Till Visa & Post-Landing</small>
+            </div>
+          </div>
         </div>
 
         <div className="sp-why-list">
-          <div className="sp-why-item"><b>Personalised Approach</b><p>Guidance begins with understanding the student rather than pushing a one-size-fits-all route.</p></div>
-          <div className="sp-why-item"><b>Destination Knowledge</b><p>Explore established study destinations and compare your available options.</p></div>
-          <div className="sp-why-item"><b>Application Support</b><p>Stay organised through the key stages of your application journey.</p></div>
-          <div className="sp-why-item"><b>Transparent Guidance</b><p>Get practical information so you can make decisions with greater confidence.</p></div>
-          <div className="sp-why-item"><b>Experienced Team</b><p>Work with a team focused on education counselling and international study pathways.</p></div>
-          <div className="sp-why-item"><b>Long-Term Support</b><p>Our goal is to support your journey beyond the first conversation.</p></div>
+          <div className="sp-why-item">
+            <div className="sp-why-item-header">
+              <span className="sp-why-item-num">01</span>
+              <b>Personalised Approach</b>
+            </div>
+            <p>Guidance begins with understanding your academic history, strengths, and budget rather than pushing a one-size-fits-all route.</p>
+          </div>
+          <div className="sp-why-item">
+            <div className="sp-why-item-header">
+              <span className="sp-why-item-num">02</span>
+              <b>Destination Knowledge</b>
+            </div>
+            <p>Direct tie-ups with top global universities across Canada, UK, Australia, USA, and Europe with real-time intake updates.</p>
+          </div>
+          <div className="sp-why-item">
+            <div className="sp-why-item-header">
+              <span className="sp-why-item-num">03</span>
+              <b>Application & SOP Support</b>
+            </div>
+            <p>Stay organised through document vetting, customized Statement of Purpose (SOP) drafting, and error-free submission.</p>
+          </div>
+          <div className="sp-why-item">
+            <div className="sp-why-item-header">
+              <span className="sp-why-item-num">04</span>
+              <b>Transparent Guidance</b>
+            </div>
+            <p>Get authentic financial documentation advice and embassy interview preparation to maximize visa approval odds.</p>
+          </div>
+          <div className="sp-why-item">
+            <div className="sp-why-item-header">
+              <span className="sp-why-item-num">05</span>
+              <b>Experienced Team</b>
+            </div>
+            <p>Work directly with senior immigration counsellors with over a decade of proven track record and thousands of success stories.</p>
+          </div>
+          <div className="sp-why-item">
+            <div className="sp-why-item-header">
+              <span className="sp-why-item-num">06</span>
+              <b>Long-Term Support</b>
+            </div>
+            <p>Our commitment extends beyond visa issuance to pre-departure briefing, student accommodation guidance, and forex help.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -339,10 +481,26 @@ export default function HomePage({
   <section className="sp-stats sp-section">
     <div className="sp-wrap">
       <div className="sp-stats-grid">
-        <div className="sp-stat"><b>2025</b><span>Established</span></div>
-        <div className="sp-stat"><b>5.0★</b><span>Google Rating</span></div>
-        <div className="sp-stat"><b>227+</b><span>Google Reviews</span></div>
-        <div className="sp-stat"><b>6+</b><span>Study Destinations</span></div>
+        <div className="sp-stat">
+          <div className="sp-stat-icon">📅</div>
+          <b>2025</b>
+          <span>Established & Growing</span>
+        </div>
+        <div className="sp-stat highlight">
+          <div className="sp-stat-icon">⭐</div>
+          <b>5.0★</b>
+          <span>Google Rating</span>
+        </div>
+        <div className="sp-stat">
+          <div className="sp-stat-icon">💬</div>
+          <b>227+</b>
+          <span>Verified Reviews</span>
+        </div>
+        <div className="sp-stat">
+          <div className="sp-stat-icon">✈️</div>
+          <b>6+</b>
+          <span>Top Global Destinations</span>
+        </div>
       </div>
     </div>
   </section>
